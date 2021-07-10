@@ -51,7 +51,7 @@ def read_kestrel_data(filename=None, logger_name=None):
         raise ValueError("filename or logger_name must be given!")
 
     if(filename is None):
-        filename = glob.glob("*" + logger_name + "_*.csv")[0]
+        filename = glob.glob(make_filename_search(logger_name))
 
     data = np.genfromtxt(filename, delimiter=',', skip_header=11, 
                          names=names_to_use, 
@@ -71,11 +71,14 @@ def plot_kestrel_timeseries(timeseries_name, ls=None):
         ls (list of str): which data file names; if None, plot all
         "WEATHER*.csv" files
 
+    Returns:
+        fig, ax
+
     """
 
     if(ls is None):
         # Read in all file names
-        ls = glob.glob("WEATHER*.csv")
+        ls = glob.glob("*WEATHER*.csv")
 
     # Read in and process Kestrel data
     filename = ls[0]
@@ -93,3 +96,16 @@ def plot_kestrel_timeseries(timeseries_name, ls=None):
     ax1.legend()
 
     return fig, ax1
+
+def make_filename_search(logger_name):
+    """
+    Returns search string for glob based on logger_name
+
+    Args:
+        logger_name (str): logger name
+
+    Returns:
+        str: search string for glob
+    """
+
+    return "*WEATHER*" + logger_name + "_*.csv"
