@@ -10,17 +10,19 @@ names_to_use = ['DateTime','Temp','Wet_Bulb_Temp','Rel_Hum','Baro','Altitude','S
                 'Wind_Speed','Heat_Index','Dew_Point','Dens_Alt','Crosswind','Headwind','Mag_Dir',
                 'True_Dir','Wind_Chill']
 
-
 # The GPS locations for the Kestrel loggers
 logger_locations = {'730': (Angle('42d30m21.492s'), Angle('-118d31m47.028s')),
                     '422': (Angle('42d30m21.42s'), Angle('-118d31m46.59s')),
                     '516': (Angle('42d30m22.248s'), Angle('-118d31m43.158s')),
-                    '119': (Angle('42d30m24.468s'), Angle('-118d31m43.77s')),
+                    '160': (Angle('42d30m24.468s'), Angle('-118d31m43.77s')),
                     '115': (Angle('42d30m24.378s'), Angle('-118d31m44.1s')),
                     '49': (Angle('42d30m25.02s'), Angle('-118d31m47.088')),
                     '50': (Angle('42d30m23.682s'), Angle('-118d31m48.192')),
                     '48': (Angle('42d30m24.72s'), Angle('-118d31m47.832')),
                     '51': (Angle('42d30m24.942s'), Angle('-118d31m47.118'))}
+
+logger_names = ['730', '422', '516', '160', '115', '49', '50', '48', '51']
+
 # Calculate mean lat/long
 mean_lat = 0.
 mean_long = 0.
