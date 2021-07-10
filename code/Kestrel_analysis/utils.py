@@ -51,7 +51,7 @@ def read_kestrel_data(filename=None, logger_name=None):
         raise ValueError("filename or logger_name must be given!")
 
     if(filename is None):
-        filename = glob.glob(make_filename_search(logger_name))
+        filename = glob.glob(make_filename_search(logger_name))[0]
 
     data = np.genfromtxt(filename, delimiter=',', skip_header=11, 
                          names=names_to_use, 
@@ -62,7 +62,7 @@ def read_kestrel_data(filename=None, logger_name=None):
 
     return dataframe
 
-def plot_kestrel_timeseries(timeseries_name, ls=None):
+def plot_kestrel_timeseries(timeseries_name, ls=None, xlim=None, ylim=None):
     """
     Read in and plot desired time-series
 
