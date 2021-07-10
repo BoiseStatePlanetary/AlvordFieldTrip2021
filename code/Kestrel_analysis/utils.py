@@ -1,6 +1,30 @@
 import numpy as np
 import pandas as pd
 
+from astropy import units as u
+from astropy.coordinates import Angle
+
+# The GPS locations for the Kestrel loggers
+logger_locations = {'730': (Angle('42d30m21.492s'), Angle('-118d31m47.028s')),
+                    '422': (Angle('42d30m21.42s'), Angle('-118d31m46.59s')),
+                    '516': (Angle('42d30m22.248s'), Angle('-118d31m43.158s')),
+                    '119': (Angle('42d30m24.468s'), Angle('-118d31m43.77s')),
+                    '115': (Angle('42d30m24.378s'), Angle('-118d31m44.1s')),
+                    '49': (Angle('42d30m25.02s'), Angle('-118d31m47.088')),
+                    '50': (Angle('42d30m23.682s'), Angle('-118d31m48.192')),
+                    '48': (Angle('42d30m24.72s'), Angle('-118d31m47.832')),
+                    '51': (Angle('42d30m24.942s'), Angle('-118d31m47.118'))}
+# Calculate mean lat/long
+mean_lat = 0.
+mean_long = 0.
+for logger in logger_locations:
+    mean_lat += logger_locations[logger][0]
+    mean_long += logger_locations[logger][1]
+
+mean_lat /= len(logger_locations)
+mean_long /= len(logger_locations)
+logger_locations['mean'] = (Angle(mean_lat), Angle(mean_long))
+
 def read_kestrel_data(filename):
     """
     Read in and process (if needed) Kestrel data files
