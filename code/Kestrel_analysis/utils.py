@@ -58,10 +58,8 @@ def read_kestrel_data(filename=None, logger_name=None):
                          dtype=None)
     # Convert first two columns into datetime
     datatime = pd.to_datetime(data['DateTime'].astype(str))
-    dataframe = pd.DataFrame(data[names_to_use[1:]])
+    dataframe = pd.DataFrame(data[names_to_use[1:]], index=datatime)
 
-    dataframe.insert(0, 'DateTime', datatime) 
-    
     return dataframe
 
 def plot_kestrel_timeseries(timeseries_name, ls=None):
@@ -82,7 +80,7 @@ def plot_kestrel_timeseries(timeseries_name, ls=None):
     # Read in and process Kestrel data
     filename = ls[0]
     data1 = read_kestrel_data(filename)
-    ax1 = data1.plot(x='DateTime', y=timeseries_name, ls='', marker='.', figsize=(10,10), label=filename)
+    ax1 = data1.plot(y=timeseries_name, ls='', marker='.', figsize=(10,10), label=filename)
 
     fig = ax1.get_figure()
 
@@ -90,7 +88,7 @@ def plot_kestrel_timeseries(timeseries_name, ls=None):
 
         for filename in ls[1:]:
             data = read_kestrel_data(filename)
-            data.plot(x='DateTime', y=timeseries_name, ls='', marker='.', ax=ax1, label=filename)
+            data.plot(y=timeseries_name, ls='', marker='.', ax=ax1, label=filename)
 
     ax1.legend()
 
