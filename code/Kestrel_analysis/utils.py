@@ -4,6 +4,13 @@ import pandas as pd
 from astropy import units as u
 from astropy.coordinates import Angle
 
+import glob
+
+names_to_use = ['DateTime','Temp','Wet_Bulb_Temp','Rel_Hum','Baro','Altitude','Station_P',
+                'Wind_Speed','Heat_Index','Dew_Point','Dens_Alt','Crosswind','Headwind','Mag_Dir',
+                'True_Dir','Wind_Chill']
+
+
 # The GPS locations for the Kestrel loggers
 logger_locations = {'730': (Angle('42d30m21.492s'), Angle('-118d31m47.028s')),
                     '422': (Angle('42d30m21.42s'), Angle('-118d31m46.59s')),
@@ -36,9 +43,6 @@ def read_kestrel_data(filename):
         pandas DataFrame: meteorological data
 
     """
-    names_to_use = ['DateTime','Temp','Wet_Bulb_Temp','Rel_Hum','Baro','Altitude','Station_P',
-                    'Wind_Speed','Heat_Index','Dew_Point','Dens_Alt','Crosswind','Headwind','Mag_Dir',
-                    'True_Dir','Wind_Chill']
     data = np.genfromtxt(filename, delimiter=',', skip_header=11, 
                          names=names_to_use, 
                          dtype=None)
@@ -49,3 +53,35 @@ def read_kestrel_data(filename):
     dataframe.insert(0, 'DateTime', datatime) 
     
     return dataframe
+
+def plot_kestrel_timeseries(timeseries_name, ls=None):
+    """
+    Read in and plot desired time-series
+
+    Args:
+        timeseries_name (str): which time-series to plot
+        ls (list of str): which data file names; if None, plot all
+        "WEATHER*.csv" files
+
+    """
+
+    if(ls is None):
+        # Read in all file names
+        ls = glob.glob("WEATHER*.csv")
+
+    # Read in and process Kestrel data
+    filename = ls[0]
+    data1 = read_kestrel_data(filename)
+    ax1 = data1.plot(x='DateTime', y=timeseries_name, ls='', marker='.', figsize=(10,10), label=filename)
+
+    fig = ax1.get_figure()
+
+    if(len(ls) > 1):
+
+        for filename in ls[1:]:
+            data = read_kestrel_data(filename)
+            data.plot(x='DateTime', y=timeseries_name, ls='', marker='.', ax=ax1, label=filename)
+
+    ax1.legend()
+
+    return fig, ax1
