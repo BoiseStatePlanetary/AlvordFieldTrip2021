@@ -34,17 +34,25 @@ mean_lat /= len(logger_locations)
 mean_long /= len(logger_locations)
 logger_locations['mean'] = (Angle(mean_lat), Angle(mean_long))
 
-def read_kestrel_data(filename):
+def read_kestrel_data(filename=None, logger_name=None):
     """
     Read in and process (if needed) Kestrel data files
 
     Args:
         filename (str): name of data file
+        logger_name (str): name of logger whose data file you want
 
     Returns:
         pandas DataFrame: meteorological data
 
     """
+
+    if((filename is None) and (logger_name is None)):
+        raise ValueError("filename or logger_name must be given!")
+
+    if(filename is None):
+        filename = glob.glob("*" + logger_name + "_*.csv")[0]
+
     data = np.genfromtxt(filename, delimiter=',', skip_header=11, 
                          names=names_to_use, 
                          dtype=None)
