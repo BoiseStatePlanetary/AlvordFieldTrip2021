@@ -11,15 +11,15 @@ names_to_use = ['DateTime','Temp','Wet_Bulb_Temp','Rel_Hum','Baro','Altitude','S
                 'True_Dir','Wind_Chill']
 
 # The GPS locations for the Kestrel loggers
-logger_locations = {'730': (Angle('42d30m21.492s'), Angle('-118d31m47.028s')),
+logger_locations = {'730': (Angle('42d30.356m'), Angle('-118d31.797m')),
                     '422': (Angle('42d30m21.42s'), Angle('-118d31m46.59s')),
-                    '516': (Angle('42d30m22.248s'), Angle('-118d31m43.158s')),
-                    '160': (Angle('42d30m24.468s'), Angle('-118d31m43.77s')),
-                    '115': (Angle('42d30m24.378s'), Angle('-118d31m44.1s')),
-                    '49': (Angle('42d30m25.02s'), Angle('-118d31m47.088')),
-                    '50': (Angle('42d30m23.682s'), Angle('-118d31m48.192')),
-                    '48': (Angle('42d30m24.72s'), Angle('-118d31m47.832')),
-                    '51': (Angle('42d30m24.942s'), Angle('-118d31m47.118'))}
+                    '516': (Angle('42d30.369m'), Angle('-118d31.719m')),
+                    '160': (Angle('42d30.428m'), Angle('-118d31.738m')),
+                    '115': (Angle('42d30.407m'), Angle('-118d31.732m')),
+                    '49': (Angle('42d30.414m'), Angle('-118d31.786m')),
+                    '50': (Angle('42d30.392m'), Angle('-118d31.803m')),
+                    '48': (Angle('42d30.409m'), Angle('-118d31.805m')),
+                    '51': (Angle('42d30.397m'), Angle('-118d31.783m'))}
 
 logger_names = ['730', '422', '516', '160', '115', '49', '50', '48', '51']
 
